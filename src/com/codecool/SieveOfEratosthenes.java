@@ -1,19 +1,26 @@
 package com.codecool;
 
-class sieveOfEratosthenes {
+import java.util.*;
 
-    private int[] integerArray;
+class SieveOfEratosthenes {
+
+    private Integer[] integerArray;
     private int nonPrimes = 0;
     private int cpuIterator = 0;
 
-    sieveOfEratosthenes(int length) {
-        integerArray = new int[length];
+    private ArrayList<Integer> integerList = new ArrayList<Integer>();
+
+    SieveOfEratosthenes(int length) {
+        integerArray = new Integer[length];
         for (int i = 0; i < length; i++) {
             integerArray[i] = i + 1;
         }
+
+        integerList.addAll(Arrays.asList(integerArray));
+        integerList.remove(0);
     }
 
-    int[] cpuSieve() {
+    int[] limitedCpuSieve() {
         int largestPossibleDivisor = (int) Math.ceil((double) integerArray.length / 2);
 
         integerArray[0] = -1;
@@ -37,6 +44,22 @@ class sieveOfEratosthenes {
             }
         }
         return cpuPrimes;
+    }
+
+    ArrayList<Integer> limitedMemorySieve() {
+        int largestPossibleDivisor = (int) Math.ceil((double) integerList.size() / 2);
+
+
+        for (int j = 2; j < largestPossibleDivisor; j++) {
+            for (Iterator<Integer> iterator = integerList.listIterator(); iterator.hasNext();) {
+                Integer currentElement = iterator.next();
+                if (currentElement % j == 0 && currentElement != j) {
+                    iterator.remove();
+                }
+            }
+        }
+
+        return integerList;
     }
 
 }
