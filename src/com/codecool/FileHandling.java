@@ -28,5 +28,51 @@ class FileHandling {
 
     }
 
+    Integer[] readIntPrimesFromFile(String fileName, Integer largestElement) {
+
+        List<Integer> primesList = new ArrayList<>();
+        Integer[] primesArray = null;
+
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (Integer.parseInt(line) > largestElement) {
+                    return primesList.toArray(new Integer[primesList.size()]);
+                }
+                primesList.add(Integer.parseInt(line));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return primesArray;
+
+    }
+
+    int getNumberOfPrimes(String fileName, Integer largestElement) {
+
+        int numberOfPrimes = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (Integer.parseInt(line) > largestElement) {
+                    return numberOfPrimes;
+                }
+                numberOfPrimes++;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return numberOfPrimes;
+
+    }
+
 
 }
