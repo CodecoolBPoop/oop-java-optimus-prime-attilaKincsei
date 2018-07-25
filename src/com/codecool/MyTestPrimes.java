@@ -23,8 +23,8 @@ public class MyTestPrimes {
 
     private static void runFunctionalityTest() {
         // Creating primes array with tested algorithm
-        SieveOfEratosthenes sieveOfEratosthenes = new SieveOfEratosthenes(largestElement);
-        Integer[] actualPrimes = sieveOfEratosthenes.limitedCpuSieveV2(largestElement);
+        SieveOfEratosthenes sieveOfEratosthenes = new SieveOfEratosthenes();
+        Integer[] actualPrimes = sieveOfEratosthenes.limitedCpuSieve(largestElement);
         actualPrimeStrings = Arrays.toString(actualPrimes);
 
         // Creating expected primes array
@@ -39,17 +39,17 @@ public class MyTestPrimes {
         } else {
             System.out.println("Test FAILED!");
         }
-        System.out.printf("Expected: %s", expectedPrimeStrings);
-        System.out.println();
-        System.out.printf("Actual:   %s", actualPrimeStrings);
-        System.out.println();
+//        System.out.printf("Expected: %s", expectedPrimeStrings);
+//        System.out.println();
+//        System.out.printf("Actual:   %s", actualPrimeStrings);
+//        System.out.println();
 
     }
 
     private static long runPerformanceTest() {
-        SieveOfEratosthenes sieveOfEratosthenes = new SieveOfEratosthenes(largestElement);
+        SieveOfEratosthenes sieveOfEratosthenes = new SieveOfEratosthenes();
         long start = System.currentTimeMillis();
-        sieveOfEratosthenes.limitedCpuSieveV2(largestElement);
+        sieveOfEratosthenes.limitedCpuSieve(largestElement);
         long end = System.currentTimeMillis();
         return end - start;
     }
@@ -78,8 +78,8 @@ public class MyTestPrimes {
 
     private static void limitedMemoryFunctionalityTest() {
         // Creating primes array with tested algorithm
-        SieveOfEratosthenes sieveOfEratosthenes = new SieveOfEratosthenes(largestElement);
-        Integer[] primesArray = sieveOfEratosthenes.limitedMemorySieve();
+        SieveOfEratosthenes sieveOfEratosthenes = new SieveOfEratosthenes();
+        Integer[] primesArray = sieveOfEratosthenes.limitedMemorySieve(largestElement);
         actualmemoryPrimes = Arrays.toString(primesArray);
 
         expectedPrimeStrings = expectedPrimes.toString();
@@ -93,17 +93,17 @@ public class MyTestPrimes {
         } else {
             System.out.println("Test FAILED!");
         }
-        System.out.printf("Expected: %s", expectedPrimeStrings);
-        System.out.println();
-        System.out.printf("Actual:   %s", actualmemoryPrimes);
-        System.out.println();
+//        System.out.printf("Expected: %s", expectedPrimeStrings);
+//        System.out.println();
+//        System.out.printf("Actual:   %s", actualmemoryPrimes);
+//        System.out.println();
 
     }
 
     private static long memoryPerformanceTest() {
-        SieveOfEratosthenes sieveOfEratosthenes = new SieveOfEratosthenes(largestElement);
+        SieveOfEratosthenes sieveOfEratosthenes = new SieveOfEratosthenes();
         long start = System.currentTimeMillis();
-        sieveOfEratosthenes.limitedMemorySieve();
+        sieveOfEratosthenes.limitedMemorySieve(largestElement);
         long end = System.currentTimeMillis();
         return end - start;
     }
@@ -131,19 +131,20 @@ public class MyTestPrimes {
 
 
     public static void main(String[] args) {
-        String inputFileName = "resources/1229_primes_per_line.txt";
-        int timesToRun = 10;
-        largestElement = 1_000_000;
+        String inputFileName = "resources/primes_1million_per_line.txt";
+        int timesToRun = 1;
+        largestElement = 9973;
         createExpectedPrimesList(inputFileName);
 
-//        runFunctionalityTest();
-//        printFunctionalityResult();
+        runFunctionalityTest();
+        printFunctionalityResult();
         printPerformanceAverage(timesToRun);
-//        System.out.println();
-//        System.out.println();
-//        limitedMemoryFunctionalityTest();
-//        printMemoryFunctionalityResult();
-//        printMemoryPerformanceAverage(timesToRun);
+        System.out.println();
+        System.out.println();
+        limitedMemoryFunctionalityTest();
+        printMemoryFunctionalityResult();
+        printMemoryPerformanceAverage(timesToRun);
+
     }
 
 }

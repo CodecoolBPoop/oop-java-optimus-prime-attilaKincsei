@@ -34,7 +34,7 @@ class SieveOfEratosthenesTest {
     void createExpectedPrimesList() {
         setInputFileName("resources/1229_primes_per_line.txt");
         setLargestElement(1000);
-        sieve = new SieveOfEratosthenes(largestElement);
+        sieve = new SieveOfEratosthenes();
         FileHandling testFH = new FileHandling();
         expectedPrimes = testFH.readIntPrimesFromFile(inputFileName, largestElement);
     }
@@ -42,18 +42,18 @@ class SieveOfEratosthenesTest {
 
     @Test
     void TestLimitedCpuSieve() {
-        assertArrayEquals(expectedPrimes, sieve.limitedCpuSieve());
+        assertArrayEquals(expectedPrimes, sieve.limitedCpuSieve(largestElement));
     }
 
     @Test
     void TestLimitedMemorySieve() {
-        assertArrayEquals(expectedPrimes, sieve.limitedMemorySieve());
+        assertArrayEquals(expectedPrimes, sieve.limitedMemorySieve(largestElement));
     }
 
     @ParameterizedTest
     @ValueSource(ints = {40, 30, 20, 10})
     void testLimitedCpuSieveTimeOut(int milliseconds) {
-        assertTimeout(Duration.ofMillis(milliseconds), sieve::limitedCpuSieve, "Duration exeeds 20 milliseconds");
+        assertTimeout(Duration.ofMillis(milliseconds), () -> sieve.limitedCpuSieve(largestElement), "Duration exeeds 20 milliseconds");
     }
 
     @Test
@@ -71,10 +71,10 @@ class SieveOfEratosthenesTest {
         assumingThat(
                 largestElement < 1000,
                 () -> {
-                    assertArrayEquals(expectedPrimes, sieve.limitedCpuSieve());
+                    assertArrayEquals(expectedPrimes, sieve.limitedCpuSieve(largestElement));
                 }
         );
-        assertTimeout(Duration.ofMillis(9), sieve::limitedCpuSieve, "Duration exeeds 20 milliseconds");
+        assertTimeout(Duration.ofMillis(9), () -> sieve.limitedCpuSieve(largestElement), "Duration exeeds 20 milliseconds");
     }
 
 

@@ -4,64 +4,36 @@ import java.util.*;
 
 class SieveOfEratosthenes {
 
-    private Integer[] integerArray;
-    private int nonPrimes = 0;
-    private int cpuIterator = 0;
-
-    private ArrayList<Integer> integerList = new ArrayList<Integer>();
-
-    public SieveOfEratosthenes() {
+    SieveOfEratosthenes() {
     }
 
-    SieveOfEratosthenes(int length) {
-        integerArray = new Integer[length];
-        for (int i = 0; i < length; i++) {
-            integerArray[i] = i + 1;
-        }
-
-        integerList.addAll(Arrays.asList(integerArray));
-        integerList.remove(0);
-    }
-
-    Integer[] limitedCpuSieve() {
-        int largestPossibleDivisor = (int) Math.ceil((double) integerArray.length / 2);
-
-        integerArray[0] = -1;
-        nonPrimes++;
-
-        for (int j = 2; j < largestPossibleDivisor; j++) {
-            for (int i = 0; i < integerArray.length; i++) {
-                if (integerArray[i] != -1 && integerArray[i] % j == 0 && integerArray[i] != j) {
-                    integerArray[i] = -1;
-                    nonPrimes++;
-                }
-            }
-        }
-
-        Integer[] cpuPrimes = new Integer[integerArray.length - nonPrimes];
-
-        for (int integer : integerArray) {
-            if (integer != -1) {
-                cpuPrimes[cpuIterator] = integer;
-                cpuIterator++;
-            }
-        }
-        return cpuPrimes;
-    }
-
-    Integer[] limitedCpuSieveV2(int length) {
+    private Integer[] createIntegerArray(int length) {
         Integer[] integerArray = new Integer[length + 2];
-        for (int i = 0; i <= length; i++) {
+        for (int i = 0; i < length + 2; i++) {
             integerArray[i] = i;
         }
+        return integerArray;
+    }
 
 
-        int largestPossibleDivisor = (int) Math.ceil((double) integerArray.length / 2);
+    Integer[] limitedCpuSieve(int largestNumber) {
+        Integer[] integerArray = createIntegerArray(largestNumber);
+
+
+        int primeIteratorLimit = (int) Math.sqrt(integerArray.length);
 
         integerArray[0] = -1;
         integerArray[1] = -1;
 
-        for (int jumps = 2; jumps < largestPossibleDivisor; jumps++) {
+        int jumps = 1;
+        while (jumps < primeIteratorLimit) {
+
+            for (int i = jumps + 1; i < integerArray.length; i++) {
+                if (integerArray[i] != -1) {
+                    jumps = integerArray[i];
+                    break;
+                }
+            }
 
             int lengthLimit = integerArray.length / jumps;
             int maximumIndex;
@@ -72,9 +44,9 @@ class SieveOfEratosthenes {
             }
 
 
-            for (int i = 2; i < maximumIndex; i++) {
-                int currentPrime = jumps * i;
-                int currentPrimeIndex = Math.min(currentPrime, integerArray.length - 1);
+            for (int j = 2; j < maximumIndex; j++) {
+                int primeMultiples = jumps * j;
+                int currentPrimeIndex = Math.min(primeMultiples, integerArray.length - 1);
                 integerArray[currentPrimeIndex] = -1;
             }
 
@@ -92,11 +64,20 @@ class SieveOfEratosthenes {
     }
 
 
-    Integer[] limitedMemorySieve() {
-        int largestPossibleDivisor = (int) Math.ceil((double) integerList.size() / 2);
+    Integer[] limitedMemorySieve(int largestNumber) {
+
+        Integer[] integerArray = createIntegerArray(largestNumber);
+
+        List<Integer> integerList = new ArrayList<>();
+        integerList.addAll(Arrays.asList(integerArray));
+        integerList.remove(0);
+        integerList.remove(0);
+        integerList.remove(integerList.size() - 1);
+
+        int primeIteratorLimit = (int) Math.sqrt(integerArray.length);
 
 
-        for (int j = 2; j < largestPossibleDivisor; j++) {
+        for (int j = 2; j < primeIteratorLimit; j++) {
             for (Iterator<Integer> iterator = integerList.listIterator(); iterator.hasNext();) {
                 Integer currentElement = iterator.next();
                 if (currentElement % j == 0 && currentElement != j) {
@@ -105,7 +86,7 @@ class SieveOfEratosthenes {
             }
         }
 
-        return integerList.toArray(new Integer[integerList.size()]);
+        return integerList.toArray(new Integer[0]);
     }
 
 }
