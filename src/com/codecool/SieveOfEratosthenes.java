@@ -17,13 +17,12 @@ class SieveOfEratosthenes {
 
 
     Integer[] limitedCpuSieve(int largestNumber) {
+
         Integer[] integerArray = createIntegerArray(largestNumber);
-
-
-        int primeIteratorLimit = (int) Math.sqrt(integerArray.length);
-
         integerArray[0] = -1;
         integerArray[1] = -1;
+
+        int primeIteratorLimit = (int) Math.sqrt(integerArray.length);
 
         int jumps = 1;
         while (jumps < primeIteratorLimit) {
@@ -68,8 +67,7 @@ class SieveOfEratosthenes {
 
         Integer[] integerArray = createIntegerArray(largestNumber);
 
-        List<Integer> integerList = new ArrayList<>();
-        integerList.addAll(Arrays.asList(integerArray));
+        List<Integer> integerList = new ArrayList<>(Arrays.asList(integerArray));
         integerList.remove(0);
         integerList.remove(0);
         integerList.remove(integerList.size() - 1);
