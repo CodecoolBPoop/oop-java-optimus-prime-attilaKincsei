@@ -1,5 +1,10 @@
 package com.codecool;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 public class OptimusPrime {
 
     boolean[] booleanArray;
@@ -13,23 +18,49 @@ public class OptimusPrime {
         }
     }
 
-    int numberOfPrimes() {
-        int largestPossibleDivisor = (int) Math.ceil((double) arrayLength / 2);
+    int numberOfPrimesLimitedCPU() {
 
-        int nonPrimes = 0;
         booleanArray[0] = false;
-        nonPrimes++;
+        booleanArray[1] = false;
 
-        for (int j = 2; j < largestPossibleDivisor; j++) {
-            for (int i = 0; i < arrayLength; i++) {
-                if (booleanArray[i] && i % j == 0 && i != j) {
-                    booleanArray[i] = false;
-                    nonPrimes++;
+        int primeIteratorLimit = (int) Math.sqrt(booleanArray.length);
+
+        int jumps = 1;
+        while (jumps < primeIteratorLimit) {
+
+            for (int i = jumps + 1; i < booleanArray.length; i++) {
+                if (booleanArray[i]) {
+                    jumps = i;
+                    break;
                 }
+            }
+
+            int lengthLimit = booleanArray.length / jumps;
+            int maximumIndex;
+            if (lengthLimit % 2 == 0) {
+                maximumIndex = lengthLimit;
+            } else {
+                maximumIndex = lengthLimit + 1;
+            }
+
+
+            for (int j = 2; j < maximumIndex; j++) {
+                int primeMultiples = jumps * j;
+                int currentPrimeIndex = Math.min(primeMultiples, booleanArray.length - 1);
+                booleanArray[currentPrimeIndex] = false;
+            }
+
+        }
+
+
+        int numberOfPrimes = 0;
+        for (boolean booleanItem : booleanArray) {
+            if (booleanItem) {
+                numberOfPrimes++;
             }
         }
 
-        return arrayLength - nonPrimes - 1;
+        return numberOfPrimes;
     }
 
 
