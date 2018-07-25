@@ -24,27 +24,21 @@ class ActualPrimes {
 
         int primeIteratorLimit = (int) Math.sqrt(integerArray.length);
 
-        int jumps = 1;
-        while (jumps < primeIteratorLimit) {
+        int nextLeastPrime = 1;
+        while (nextLeastPrime < primeIteratorLimit) {
 
-            for (int i = jumps + 1; i < integerArray.length; i++) {
+            for (int i = nextLeastPrime + 1; i < integerArray.length; i++) {
                 if (integerArray[i] != -1) {
-                    jumps = integerArray[i];
+                    nextLeastPrime = integerArray[i];
                     break;
                 }
             }
 
-            int lengthLimit = integerArray.length / jumps;
-            int maximumIndex;
-            if (lengthLimit % 2 == 0) {
-                maximumIndex = lengthLimit;
-            } else {
-                maximumIndex = lengthLimit + 1;
-            }
+            int maximumIndex = integerArray.length / nextLeastPrime + 1;
 
 
             for (int j = 2; j < maximumIndex; j++) {
-                int primeMultiples = jumps * j;
+                int primeMultiples = nextLeastPrime * j;
                 int currentPrimeIndex = Math.min(primeMultiples, integerArray.length - 1);
                 integerArray[currentPrimeIndex] = -1;
             }
