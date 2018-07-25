@@ -1,12 +1,12 @@
-package com.codecool;
+package com.codecool.util;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class FileHandling {
+public class FileHandling {
 
-    List<String> readPrimesFromFile(String fileName, Integer largestElement) {
+    public List<String> readPrimesFromFile(String fileName, Integer largestElement) {
 
         List<String> primesList = new ArrayList<>();
 
@@ -28,7 +28,7 @@ class FileHandling {
 
     }
 
-    Integer[] readIntPrimesFromFile(String fileName, Integer largestElement) {
+    public Integer[] readIntPrimesFromFile(String fileName, Integer largestElement) {
 
         List<Integer> primesList = new ArrayList<>();
         Integer[] primesArray = null;
@@ -52,7 +52,7 @@ class FileHandling {
 
     }
 
-    int getNumberOfPrimes(String fileName, Integer largestElement) {
+    public int getNumberOfPrimes(String fileName, Integer largestElement) {
 
         int numberOfPrimes = 0;
 
