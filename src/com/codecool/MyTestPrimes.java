@@ -133,7 +133,7 @@ public class MyTestPrimes {
     public static void main(String[] args) {
         String inputFileName = "resources/primes_1million_per_line.txt";
         int timesToRun = 1;
-        largestElement = 9973;
+        largestElement = 973;
         createExpectedPrimesList(inputFileName);
 
         runFunctionalityTest();
@@ -144,6 +144,9 @@ public class MyTestPrimes {
         limitedMemoryFunctionalityTest();
         printMemoryFunctionalityResult();
         printMemoryPerformanceAverage(timesToRun);
+
+        boolean[] myArray = new boolean[10];
+        System.out.println(Arrays.toString(myArray));
 
     }
 
