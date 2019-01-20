@@ -87,8 +87,8 @@ public class ManualTestsForActualPrimes {
 
     public static void main(String[] args) {
         String inputFileName = "resources/primes_1million_per_line.txt";
-        int timesToRun = 1;
-        largestElement = 101377;
+        int timesToRun = 30;
+        largestElement = 100;
         createExpectedPrimesList(inputFileName);
 
         runFunctionalityTest();

@@ -22,8 +22,8 @@ class TestOnlyNumberOfPrimes {
         fileName = "resources/primes_1million_per_line.txt";
     }
 
-    @ParameterizedTest
-    @ValueSource(ints = {100, 1000, 10_000, 100_000, 1_000_000})
+    @ParameterizedTest()
+    @ValueSource(ints = {0, 1, 100, 1000, 10_000, 100_000, 1_000_000})
     void numberOfPrimes_AssertEqual_True(int largestElement) {
 
         int expected = fileHandling.getNumberOfPrimes(fileName, largestElement);
@@ -32,7 +32,7 @@ class TestOnlyNumberOfPrimes {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {10_000_000, 10_000_000})
+    @ValueSource(ints = {10_000_000, 100_000_000})
     void numberOfPrimes_PerformanceTest(int largestElement) {
         assertTimeout(
                 Duration.ofMillis(2000),

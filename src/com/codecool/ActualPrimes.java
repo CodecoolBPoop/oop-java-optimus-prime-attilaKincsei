@@ -27,12 +27,7 @@ class ActualPrimes {
         int nextLeastPrime = 1;
         while (nextLeastPrime < primeIteratorLimit) {
 
-            for (int i = nextLeastPrime + 1; i < integerArray.length; i++) {
-                if (integerArray[i] != -1) {
-                    nextLeastPrime = integerArray[i];
-                    break;
-                }
-            }
+            nextLeastPrime = getNextLeastPrime(integerArray, nextLeastPrime);
 
             int maximumIndex = integerArray.length / nextLeastPrime + 1;
 
@@ -45,14 +40,26 @@ class ActualPrimes {
 
         }
 
+        return getIntegerList(integerArray).toArray(new Integer[0]);
+    }
 
+    private List<Integer> getIntegerList(Integer[] integerArray) {
         List<Integer> integerList = new ArrayList<>();
         for (Integer integer : integerArray) {
             if (integer != -1) {
                 integerList.add(integer);
             }
         }
+        return integerList;
+    }
 
-        return integerList.toArray(new Integer[0]);
+    private int getNextLeastPrime(Integer[] integerArray, int nextLeastPrime) {
+        for (int i = nextLeastPrime + 1; i < integerArray.length; i++) {
+            if (integerArray[i] != -1) {
+                nextLeastPrime = integerArray[i];
+                return nextLeastPrime;
+            }
+        }
+        return nextLeastPrime;
     }
 }
